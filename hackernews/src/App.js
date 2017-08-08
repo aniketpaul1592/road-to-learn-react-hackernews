@@ -21,15 +21,26 @@ const list = [
   },
 ];
 
+function isSearched(searchTerm){
+  return function(item){
+    return !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
+  }
+}
+
 class App extends Component {
   constructor(props){
     super(props);
     this.state = {
       list : list,
+      searchTerm: ''
     }
     this.onDismiss = this.onDismiss.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
+  onSearch(event){ // synthetic react event
+    this.setState({searchTerm : event.target.value});
+  }
   onDismiss(id){
    const updatedList = this.state.list.filter(function(val){ 
       if(val.objectID !== id){
@@ -47,7 +58,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        { this.state.list.map(item =>
+        <form>
+          <input type="text" onChange ={this.onSearch}/>
+        </form>
+        { this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
             <div key={item.objectID}>
             <span>
             <a href={item.url}>{item.title}</a>
