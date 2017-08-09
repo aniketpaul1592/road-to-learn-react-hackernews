@@ -42,7 +42,7 @@ class App extends Component {
     this.setState({searchTerm : event.target.value});
   }
   onDismiss(id){
-   const updatedList = this.state.list.filter(function(val){ 
+   const updatedList = this.state.list.filter(function(val){
       if(val.objectID !== id){
         return val;
       }
@@ -58,30 +58,18 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-       <Search searchTerm={this.state.searchTerm}/>
-       <Table list={this.state.list} searchTerm = {this.state.searchTerm}/>
+       <Search searchTerm={this.state.searchTerm} onChange={this.onSearch}/>
+       <Table list={this.state.list} searchTerm = {this.state.searchTerm} onDismiss={this.onDismiss}/>
       </div>
     );
   }
 }
 
 class Search extends Component{
-  constructor(props){
-    super(props);
-    this.state = {
-      list : list,
-      searchTerm: ''
-    }
-    this.onDismiss = this.onDismiss.bind(this);
-    this.onSearch = this.onSearch.bind(this);
-  }
-  onSearch(event){ // synthetic react event
-    this.setState({searchTerm : event.target.value});
-  }
   render(){
     return(
       <form>
-          <input type="text" value={this.props.searchTerm} onChange ={this.onSearch}/>
+          <input type="text" value={this.props.searchTerm} onChange ={this.props.onChange}/>
         </form>
     );
   }
