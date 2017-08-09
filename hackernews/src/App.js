@@ -58,7 +58,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-       <Search searchTerm={this.state.searchTerm} onChange={this.onSearch}/>
+       <Search searchTerm={this.state.searchTerm} onChange={this.onSearch}>
+         Search
+       </Search>
        <Table list={this.state.list} searchTerm = {this.state.searchTerm} onDismiss={this.onDismiss}/>
       </div>
     );
@@ -69,7 +71,7 @@ class Search extends Component{
   render(){
     return(
       <form>
-          <input type="text" value={this.props.searchTerm} onChange ={this.props.onChange}/>
+          {this.props.children}<input type="text" value={this.props.searchTerm} onChange ={this.props.onChange}/>
         </form>
     );
   }
