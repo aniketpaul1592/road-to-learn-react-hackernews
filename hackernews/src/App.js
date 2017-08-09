@@ -58,10 +58,40 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <form>
-          <input type="text" onChange ={this.onSearch}/>
+       <Search searchTerm={this.state.searchTerm}/>
+       <Table list={this.state.list} searchTerm = {this.state.searchTerm}/>
+      </div>
+    );
+  }
+}
+
+class Search extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      list : list,
+      searchTerm: ''
+    }
+    this.onDismiss = this.onDismiss.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+  }
+  onSearch(event){ // synthetic react event
+    this.setState({searchTerm : event.target.value});
+  }
+  render(){
+    return(
+      <form>
+          <input type="text" value={this.props.searchTerm} onChange ={this.onSearch}/>
         </form>
-        { this.state.list.filter(isSearched(this.state.searchTerm)).map(item =>
+    );
+  }
+}
+
+class Table extends Component{
+  render(){
+    return(
+      <div>
+      { this.props.list.filter(isSearched(this.props.searchTerm)).map(item =>
             <div key={item.objectID}>
             <span>
             <a href={item.url}>{item.title}</a>
@@ -81,5 +111,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;
