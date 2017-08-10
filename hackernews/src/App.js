@@ -58,10 +58,14 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-       <Search searchTerm={this.state.searchTerm} onChange={this.onSearch}>
-         Search
-       </Search>
+        <div className="page">
+        <div className="interactions">
+          <Search searchTerm={this.state.searchTerm} onChange={this.onSearch}>
+            Search
+          </Search>
+        </div>
        <Table list={this.state.list} searchTerm = {this.state.searchTerm} onDismiss={this.onDismiss}/>
+     </div>
       </div>
     );
   }
@@ -80,9 +84,9 @@ class Search extends Component{
 class Table extends Component{
   render(){
     return(
-      <div>
+      <div className="table">
       { this.props.list.filter(isSearched(this.props.searchTerm)).map(item =>
-            <div key={item.objectID}>
+            <div key={item.objectID} className="table-row">
             <span>
             <a href={item.url}>{item.title}</a>
             </span>
@@ -90,7 +94,7 @@ class Table extends Component{
             <span>{item.num_comments}</span>
             <span>{item.points}</span>
             <span>
-              <Button onClick={() => this.props.onDismiss(item.objectID)}>
+              <Button onClick={() => this.props.onDismiss(item.objectID)} className="button-inline">
                 Dismiss
               </Button>
             </span>
