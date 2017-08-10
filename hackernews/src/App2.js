@@ -68,11 +68,14 @@ class Table extends Component{
     super(props);
     this.state = {
       list : list,
-      searchTerm: this.props.searchTerm
+      searchTerm: ""
     }
     this.onDismiss = this.onDismiss.bind(this);
   }
-
+  componentWillReceiveProps(nextProps){ //Constructor is called only once re-render may not call constructor again
+    this.setState({searchTerm: nextProps.SearchTerm}); 
+  } 
+  
   onDismiss(id){
    const updatedList = this.state.list.filter(function(val){
       if(val.objectID !== id){
